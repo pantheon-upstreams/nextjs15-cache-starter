@@ -31,7 +31,7 @@ Cache stats and clearing are exposed via `@pantheon-systems/nextjs-cache-handler
 
 ### Key Data Flow
 
-- `lib/blogService.ts` fetches from JSONPlaceholder API with various Next.js cache strategies (`no-store`, `force-cache`, `revalidate`, tagged)
+- `lib/blogService.ts` fetches from WordPress REST API (default: `developer.wordpress.org/news`) with various Next.js cache strategies (`no-store`, `force-cache`, `revalidate`, tagged)
 - Blog pages (`app/blogs/`) use ISR: list page revalidates every 300s, detail pages every 600s
 - `app/blogs/[slug]/page.tsx` uses `generateStaticParams` for SSG
 - `BlogPost` type is defined in `app/blogs/page.tsx` and imported elsewhere
@@ -44,6 +44,7 @@ Cache stats and clearing are exposed via `@pantheon-systems/nextjs-cache-handler
 | `GET/DELETE /api/cache-stats` | View/clear cache statistics |
 | `POST /api/revalidate` | Invalidate a cache tag (`{ "tag": "..." }`) |
 | `GET /api/revalidate?tag=...` | Same via query param |
+| `POST /api/purge` | Purge surrogate keys (`{ "surrogateKeys": [...] }`) — requires `WEBHOOK_SECRET` |
 | `POST /api/nuke-cdn` | Purge CDN cache via outbound proxy |
 | `/api/posts/no-cache` | Fetch demo: `cache: 'no-store'` |
 | `/api/posts/force-cache` | Fetch demo: `cache: 'force-cache'` |
@@ -52,9 +53,8 @@ Cache stats and clearing are exposed via `@pantheon-systems/nextjs-cache-handler
 
 ### Environment Variables
 
-- `CACHE_HANDLER` — `gcs` or `file` (auto-detected if unset)
-- `CACHE_BUCKET` — GCS bucket name (presence triggers GCS mode)
-- `OUTBOUND_PROXY_ENDPOINT` — Proxy for CDN purge (default: `localhost:8000`)
+- `WORDPRESS_API_URL` — WordPress REST API base (default: `https://developer.wordpress.org/news/wp-json/wp/v2`)
+- `WEBHOOK_SECRET` — Shared secret for authenticating `/api/purge` requests (required)
 
 ## Code Style Guidelines
 

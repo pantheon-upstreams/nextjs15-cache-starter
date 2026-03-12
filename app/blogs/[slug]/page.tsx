@@ -111,41 +111,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
             </header>
 
-            <div className="prose prose-zinc dark:prose-invert max-w-none">
-              {/* Render blog content with proper formatting */}
-              {blog.body.split('\n').map((paragraph, index) => {
-                if (paragraph.trim() === '') return <br key={index} />;
-
-                // Handle headers (simple markdown-like parsing)
-                if (paragraph.startsWith('# ')) {
-                  return (
-                    <h1 key={index} className="text-2xl font-bold mt-8 mb-4 text-zinc-900 dark:text-zinc-100">
-                      {paragraph.substring(2)}
-                    </h1>
-                  );
-                }
-                if (paragraph.startsWith('## ')) {
-                  return (
-                    <h2 key={index} className="text-xl font-semibold mt-6 mb-3 text-zinc-900 dark:text-zinc-100">
-                      {paragraph.substring(3)}
-                    </h2>
-                  );
-                }
-                if (paragraph.startsWith('- ')) {
-                  return (
-                    <li key={index} className="text-zinc-700 dark:text-zinc-300 mb-1">
-                      {paragraph.substring(2)}
-                    </li>
-                  );
-                }
-
-                return (
-                  <p key={index} className="text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
-                    {paragraph}
-                  </p>
-                );
-              })}
-            </div>
+            <div
+              className="prose prose-zinc dark:prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: blog.body }}
+            />
           </div>
 
           <footer className="border-t border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 p-6">
