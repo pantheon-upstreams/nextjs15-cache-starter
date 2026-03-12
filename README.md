@@ -10,8 +10,6 @@ npm run dev        # Development server at http://localhost:3000
 npm run build      # Production build
 npm run start      # Production server
 npm run lint       # ESLint
-npm run test:integration       # Integration tests (Jest)
-npm run test:integration:watch # Tests in watch mode
 ```
 
 ## Pages
@@ -44,7 +42,7 @@ npm run test:integration:watch # Tests in watch mode
 
 The custom cache handler is configured in `cache-handler.mjs` using `@pantheon-systems/nextjs-cache-handler`. It auto-detects the storage backend:
 
-- **GCS mode**: Activated when `CACHE_BUCKET` env var is set
+- **GCS mode**: Activated when `CACHE_BUCKET` env var is set. This is automatically set when deployed on Pantheon
 - **File mode**: Used as fallback for local development
 
 Next.js in-memory caching is disabled (`cacheMaxMemorySize: 0`) so all cache operations go through the custom handler.
@@ -190,14 +188,6 @@ Catches all remaining routes **except** `/api/*`, `/_next/static/*`, `/_next/ima
 | `GET /ssg-demo` | `unknown` |
 | `GET /api/cache-stats` | *(no header — excluded)* |
 | `GET /_next/static/chunk.js` | *(no header — excluded)* |
-
-## Environment Variables
-
-| Variable | Description | Default |
-|---|---|---|
-| `CACHE_HANDLER` | Cache backend type: `gcs` or `file` | Auto-detected |
-| `CACHE_BUCKET` | GCS bucket name (presence triggers GCS mode) | — |
-| `OUTBOUND_PROXY_ENDPOINT` | Proxy endpoint for CDN cache purge | `localhost:8000` |
 
 ## Middleware
 

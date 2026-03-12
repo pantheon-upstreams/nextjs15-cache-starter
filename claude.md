@@ -9,11 +9,7 @@ npm run dev          # Start development server
 npm run build        # Production build
 npm run start        # Start production server
 npm run lint         # Run ESLint
-npm run test:integration        # Run integration tests (Jest)
-npm run test:integration:watch  # Run tests in watch mode
 ```
-
-Integration tests live in `integration/**/*.test.ts` and use ts-jest with a 60-second timeout.
 
 ## Architecture
 
