@@ -2,6 +2,17 @@
 
 A Next.js 15 application with WordPress integration and custom cache handlers supporting both Google Cloud Storage (GCS) and file-based caching. Built to explore and test different caching strategies including ISR, SSR, SSG, and tagged fetch caching with CDN surrogate key integration.
 
+## Quick Start with Upstreams
+
+To quickly spin up a site with granular WordPress cache invalidation already configured, create a Pantheon site from one of the test upstreams:
+
+| Upstream | Next.js Version | Cache Strategy |
+|---|---|---|
+| `nextjs_15_cache_starter` | 15 | ISR + `Surrogate-Key` headers in `next.config.mjs` |
+| `nextjs_16_cache_starter` | 16 | `'use cache'` + `cacheTag()` — adapter exposes tags to internal router |
+
+These upstreams include WordPress REST API integration, surrogate key tagging, a secured revalidation endpoint, and the `@pantheon-systems/nextjs-cache-handler` package pre-configured. Point `WORDPRESS_API_URL` at your WordPress site and set a shared `WEBHOOK_SECRET` to get end-to-end cache invalidation working.
+
 ## Getting Started
 
 ```bash
