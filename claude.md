@@ -17,7 +17,7 @@ This is a **Next.js 15** app (App Router) that demonstrates custom cache handler
 
 ### Cache System
 
-The cache handler is configured in `cache-handler.mjs` and wired into Next.js via `next.config.mjs` (`cacheHandler` + `cacheMaxMemorySize: 0` to disable in-memory caching). The handler auto-selects between GCS and file-based storage depending on whether `CACHE_BUCKET` is set.
+The cache handler is configured in `cache-handler.mjs` and wired into Next.js via `next.config.mjs` (`cacheHandler` + `cacheMaxMemorySize: 0` to disable in-memory caching). The handler auto-selects between GCS and file-based storage (GCS is automatically configured when deployed on Pantheon).
 
 Cache stats and clearing are exposed via `@pantheon-systems/nextjs-cache-handler`'s `getSharedCacheStats` and `clearSharedCache` exports, used in `app/api/cache-stats/route.ts`.
 

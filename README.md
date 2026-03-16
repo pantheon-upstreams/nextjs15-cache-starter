@@ -54,8 +54,8 @@ npm run lint       # ESLint
 
 The custom cache handler is configured in `cache-handler.mjs` using `@pantheon-systems/nextjs-cache-handler`. It auto-detects the storage backend:
 
-- **GCS mode**: Activated when `CACHE_BUCKET` env var is set. This is automatically set when deployed on Pantheon
-- **File mode**: Used as fallback for local development
+- **GCS mode**: Automatically activated when deployed on Pantheon
+- **File mode**: Used for local development
 
 Next.js in-memory caching is disabled (`cacheMaxMemorySize: 0`) so all cache operations go through the custom handler.
 
