@@ -49,7 +49,9 @@ function transformWordPressPost(wpPost: any): BlogPost {
 }
 
 /**
- * Get all blog posts from WordPress using Next.js fetch caching
+ * Get all blog posts from WordPress using Next.js fetch caching.
+ * Tags the fetch with 'post-list' so the cache handler can map
+ * this tag to the page path for CDN purging.
  */
 export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
@@ -57,8 +59,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
     const response = await fetch(`${WP_API_URL}/posts?_embed&per_page=10`, {
       next: {
-        revalidate: 300, // 5 minutes
-        tags: ['api-posts', 'external-data']
+        revalidate: 300,
+        tags: ['post-list'],
       }
     });
 
@@ -79,7 +81,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 }
 
 /**
- * Get a single blog post by slug from WordPress using Next.js fetch caching
+ * Get a single blog post by slug from WordPress using Next.js fetch caching.
+ * Tags the fetch with the post slug and 'post-list' so both the individual
+ * post page and the listing page can be invalidated.
  */
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
@@ -87,8 +91,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 
     const response = await fetch(`${WP_API_URL}/posts?slug=${encodeURIComponent(slug)}&_embed`, {
       next: {
-        revalidate: 600, // 10 minutes cache for individual posts
-        tags: [`post-${slug}`, 'api-posts']
+        revalidate: 300,
+        tags: [`post-${slug}`, 'post-list'],
       }
     });
 

@@ -9,8 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@pantheon-systems/nextjs-cache-handler": "^0.4.0",
-    "next": "15.5.9",
+    "@pantheon-systems/nextjs-cache-handler": "^0.7.0",
+    "next": "15.5.10",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },

@@ -120,12 +120,18 @@ export default function CacheTestPage() {
 
   const revalidateCache = async (tag: string) => {
     try {
-      const response = await fetch(`/api/revalidate?tag=${tag}`);
+      const response = await fetch('/api/revalidate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Webhook-Secret': process.env.NEXT_PUBLIC_WEBHOOK_SECRET || 'test',
+        },
+        body: JSON.stringify({ surrogate_keys: [tag] }),
+      });
       const result = await response.json();
 
       if (response.ok) {
         alert(`Cache tag '${tag}' revalidated successfully!`);
-        // Refresh cache stats after revalidation
         fetchCacheStats();
       } else {
         alert(`Error: ${result.error}`);
